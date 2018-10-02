@@ -8,7 +8,7 @@ import App from './components/app';
 import reducers from './reducers';
 const loggerMiddleware = createLogger()
 import { saveState } from './localStorage';
-import throttle from 'lodash/function/throttle';
+import throttle from 'lodash/throttle';
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware,loggerMiddleware)(createStore);
 const store = createStoreWithMiddleware(reducers);
 store.subscribe(throttle(()=> {
