@@ -1,0 +1,47 @@
+import axios from 'axios';
+
+const API_KEY = '817799c7cb1265108462a1646d82695f';
+const ROOT_URL = `https://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}&units=metric`;
+
+export const FETCH_WEATHER_REQUEST = 'FETCH_WEATHER_REQUEST';
+export const FETCH_WEATHER_SUCCESS = 'FETCH_WEATHER_SUCCESS';
+export const FETCH_WEATHER_ERROR = 'FETCH_WEATHER_ERROR';
+export const ADD_CITY = 'ADD_CITY';
+export const REMOVE_CITY = 'REMOVE_CITY';
+
+
+export const removeCity = (id) => ({
+  type: REMOVE_CITY,
+  payload: {
+    id
+  }
+});
+
+const requestWeather = () => ({
+  type: FETCH_WEATHER_REQUEST
+});
+
+const errorWeather = (error) => ({
+  type: FETCH_WEATHER_ERROR,
+  error
+});
+
+const receiveWeather = (payload) => ({
+  type: FETCH_WEATHER_SUCCESS,
+  payload,
+  error: ''
+});
+const fetchWeather = (city) => {
+  return dispatch => {
+    const url = `${ROOT_URL}&q=${city}`;
+
+    dispatch(requestWeather());
+
+    axios.get(url)
+      .then((response) => dispatch(receiveWeather(response.data))
+        , (response) => dispatch(errorWeather(response.message)));
+
+  };
+};
+
+export default fetchWeather;

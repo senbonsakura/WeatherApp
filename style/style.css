@@ -1,0 +1,35 @@
+td, th {
+    vertical-align: middle !important;
+    text-align: center !important;
+}
+
+.input-group {
+    margin: 20px 0px;
+}
+
+svg {
+    height: 150px;
+}
+
+td:first-of-type, td:first-of-type > div {
+    height: 200px;
+    width:200px
+}
+
+
+.table-hover>tbody>tr:hover span,
+.table-hover>tbody>tr:hover {
+    background-color: transparent;
+}
+
+.table-hover>tbody>tr .remove-icon {
+    visibility: hidden
+}
+
+.table-hover>tbody>tr:hover .remove-icon {
+    color: blue;
+    visibility: visible
+}
+.remove-icon {
+    cursor: pointer
+}
