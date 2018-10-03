@@ -25,7 +25,7 @@ class SearchBar extends Component {
       <div>
         <form onSubmit={this.onFormSubmit} className="input-group">
           <input
-            placeholder="Add cities"
+            placeholder="Enter city name (type Istanbul or add country code to be precise, like London,UK)"
             className="form-control"
             onChange={this.onInputChange}
             value={this.state.term}
