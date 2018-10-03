@@ -2,22 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {removeCity} from '../actions';
-import Chart from '../components/Chart';
+import ChartKick from '../components/ChartKick';
+
 import GoogleMap from '../components/GoogleMap';
 
 class WeatherList extends Component {
   renderWeather = (cityData) => {
-    const temps = cityData.list.map(weather => weather.main.temp);
-    const pressures = cityData.list.map(weather => weather.main.pressure);
-    const humidities = cityData.list.map(weather => weather.main.humidity);
-    const {lat, lon} = cityData.city.coord;
-
+    const temps = cityData.list.map(weather => ([weather.dt_txt, weather.main.temp]));
+    const pressures = cityData.list.map(weather => ([weather.dt_txt,weather.main.pressure]));
+    const humidities = cityData.list.map(weather => ([weather.dt_txt,weather.main.humidity]));
     return (
       <tr key={cityData.city.id}>
-        <td><GoogleMap lat={lat} lon={lon}/></td>
-        <td><Chart data={temps} color="orange" units="C"/></td>
-        <td><Chart data={pressures} color="green" units="hPa"/></td>
-        <td><Chart data={humidities} color="black" units="%"/></td>
+        <td ><GoogleMap city={cityData.city}/></td>
+        <td ><ChartKick data={temps} color="orange" units="C"/></td>
+        <td ><ChartKick data={pressures} color="green" units="hPa"/></td>
+        <td ><ChartKick data={humidities} color="black" units="%"/></td>
         <td><span className="remove-icon" onClick={()=> this.props.removeCity(cityData.city.id)}>Remove</span></td>
       </tr>
     );
@@ -26,9 +25,11 @@ class WeatherList extends Component {
   render () {
     return (
       <div>
+
         {this.props.error && <div className="alert alert-danger" role=" alert">
           {this.props.error}
         </div>}
+        <div className="table-responsive-lg">
         <table className=" table table-hover">
 
           <thead>
@@ -45,6 +46,7 @@ class WeatherList extends Component {
           {this.props.weather.map(this.renderWeather)}
           </tbody>
         </table>
+        </div>
       </div>
     );
   }

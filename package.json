@@ -8,7 +8,9 @@
     "start": "webpack-dev-server --open --mode development",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "heroku-postbuild": "npm run build"
+
   },
   "author": "",
   "license": "ISC",
